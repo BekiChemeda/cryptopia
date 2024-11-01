@@ -934,7 +934,7 @@ def handle_message(message):
         banks_rate(message)
 
 bot.remove_webhook()  # Remove any existing webhook
-bot.set_webhook(url='secondary-drucy-bright-codes-3408871d.koyeb.app/webhook')
+bot.set_webhook(url='cloudy-kristen-bright-codes-003449ae.koyeb.app/webhook')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT)
