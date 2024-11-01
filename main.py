@@ -12,12 +12,12 @@ import time
 
 load_dotenv()
 BOT_TOKEN = os.getenv('API_TOKEN')
-# bot = telebot.TeleBot(BOT_TOKEN)
+bot = telebot.TeleBot(BOT_TOKEN)
 
 AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
 
-# DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
-# DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
+DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
+DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
 URI = os.getenv("URI")
 pm_me = types.InlineKeyboardMarkup()
 pm_me_button = types.InlineKeyboardButton(
