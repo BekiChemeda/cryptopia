@@ -18,7 +18,7 @@ AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
 
 # DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
 # DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
-uri = f"mongodb+srv://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@cyrptopia.1zlmr.mongodb.net/?retryWrites=true&w=majority&appName=cyrptopia"
+uri = os.getenv("URI")
 pm_me = types.InlineKeyboardMarkup()
 pm_me_button = types.InlineKeyboardButton(
     text="📥PM me ",
