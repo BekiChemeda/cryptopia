@@ -11,7 +11,7 @@ from datetime import datetime
 import time
 
 load_dotenv()
-BOT_TOKEN = os.getenv('API_TOKEN')
+API_KEY = os.getenv('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 
 AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
