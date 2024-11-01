@@ -13,7 +13,7 @@ import time
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 bot = telebot.TeleBot(API_KEY)
-
+PORT = int(os.environ.get('PORT', 8000)) 
 AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
 
 DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
