@@ -1,0 +1,5 @@
+Flask
+pytelegrambotapi
+requests
+python-dotenv
+pymongo
