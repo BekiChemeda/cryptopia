@@ -18,14 +18,14 @@ AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
 
 # DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
 # DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
-uri = os.getenv("URI")
+URI = os.getenv("URI")
 pm_me = types.InlineKeyboardMarkup()
 pm_me_button = types.InlineKeyboardButton(
     text="📥PM me ",
     url=f"https://t.me/{bot.get_me().username}"
 )
 pm_me.add(pm_me_button)
-client = MongoClient(uri)
+client = MongoClient(URI)
 db = client[DATABASE_USERNAME]
 bot_users_collection = db["bot_users"]
 bot_groups_collection = db["bot_groups"]
