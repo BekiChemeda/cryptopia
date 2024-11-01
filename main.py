@@ -817,7 +817,7 @@ def handle_message(message):
         suggest_idea()
 
 bot.remove_webhook()  # Remove any existing webhook
-bot.set_webhook(url='https://spatial-natka-brightcodes-c01c5910.koyeb.app/webhook')
+bot.set_webhook(url='secondary-drucy-bright-codes-3408871d.koyeb.app/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT)
