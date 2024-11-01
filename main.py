@@ -12,14 +12,11 @@ import time
 
 load_dotenv()
 BOT_TOKEN = os.getenv('API_TOKEN')
-bot = telebot.TeleBot("7998651281:AAFmM2yp_7vm4tJiwlnMfxzc8KbXoktDUoY")
 # bot = telebot.TeleBot(BOT_TOKEN)
 
 AUTHORIZED_USER_ID = os.getenv("AUTHORIZED_USER_ID")
 
-DATABASE_USERNAME = "cryptopia_bot"
 # DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
-DATABASE_PASSWORD = "cryptopia_bot"
 # DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
 uri = f"mongodb+srv://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@cyrptopia.1zlmr.mongodb.net/?retryWrites=true&w=majority&appName=cyrptopia"
 pm_me = types.InlineKeyboardMarkup()
