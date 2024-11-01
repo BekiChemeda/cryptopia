@@ -36,13 +36,13 @@ bot_admins_collection = db["bot_admins"]
 bot_settings_collection = db["bot_settings"]
 
 
-# app = Flask(__name__)
-# @app.route('/webhook', methods=['POST'])
-# def webhook():
-#     json_str = request.get_data().decode('UTF-8')
-#     update = telebot.types.Update.de_json(json_str)
-#     bot.process_new_updates([update])
-#     return '!', 200
+app = Flask(__name__)
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return '!', 200
 # Pre Functions
 def is_float(value):
     try:
@@ -818,5 +818,11 @@ def handle_message(message):
         send_about(message)
     elif message.text == "💬Comment":
         suggest_idea()
-print("Running...")
-bot.infinity_polling()
+
+bot.remove_webhook()  # Remove any existing webhook
+bot.set_webhook(url='https://spatial-natka-brightcodes-c01c5910.koyeb.app/webhook')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=PORT)
+    print("Running...")
+    # bot.infinity_polling()
