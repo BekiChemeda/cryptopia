@@ -159,6 +159,114 @@ def get_usdt_price_data():
         f"💻Developer : @BEK_I"
     )
 
+#Banks Info 
+
+banks = [
+"🏦CBE",
+'🏦Awash B.',
+'🏦B. of Abyssinia',
+"🏦B. of Abyssinia",
+"🏦Zemen B.",
+"🏦Buna B.",
+"🏦Nib Int B.",
+'🏦Berhan B.',
+"🏦Wegagen B.",
+"🏦Global B.",
+"🏦Enat B.",
+"🏦Ahadu B.",
+"🏦Addis Int B.",
+"🏦Dashen B.",
+"🏦Oromia Inte B.",
+"🏦Lion Int B.",
+"🏦Development B. of Eth",
+"🏦Cooperative B. of Oromia",
+"🏦Hijra B.",
+"🏦Amhara B.",
+"🏦Tsehay B.",
+"🏦Tsedey B.",
+"🏦Siinqee B.",
+"🏦Hibret Bank",
+"🏦Gohbetoch Bank",
+"🏦National B. Of Ethiopia"
+]
+
+def keyboardss():
+   buttons = []
+   for index, bank in enumerate(banks):
+    buttons.append(types.InlineKeyboardButton(text=bank, callback_data=str(index)))
+    markup = types.InlineKeyboardMarkup(row_width=3).add(*buttons)
+   return markup
+    
+def local_currency(bank):
+    url = "https://ethiopian-currency-exchange.vercel.app/"
+    res = requests.get(url).json()
+    usd_rate = res['exchange_rates'][bank]['rates'][0]
+    euro_rate = res['exchange_rates'][bank]['rates'][2]
+    bank_name = res['exchange_rates'][bank]['name']
+    global buy_rate, sell_rate
+   # print(best_rate)
+    return(
+        f"<b>Bank: {bank_name} </b>\n\n"
+        f"Base Currency: <b>{usd_rate['baseCurrency']}</b>\n"
+        f"Currency Code: <b>{usd_rate['currencyCode']}</b>\n"
+        f"Buying for: {usd_rate['buyRate']} ETB\n"
+        f"Selling for: {usd_rate['sellRate']} ETB\n"
+        f"Buy-Sell Difference: {usd_rate['buySellDifference']} ETB\n\n\n"
+ 
+  
+        f"Base Currency: <b>{euro_rate['baseCurrency']}</b>\n"
+        f"Currency Code: <b>{euro_rate['currencyCode']}</b>\n"
+        f"Buying for: {euro_rate['buyRate']} ETB\n"
+        f"Selling for: {euro_rate['sellRate']} ETB\n"
+        f"Buy-Sell Difference: {euro_rate['buySellDifference']} ETB\n\n\n"
+        
+        
+        
+        
+        f"Last Updated: {res['lastUpdated']}\n\n\n"
+        f"📢 Channel : @Et_Cryptopia\n"
+        f"💻Developer : @BEK_I"
+    )
+    
+    
+    
+
+#local_currency(1)
+
+@bot.message_handler(commands=["/BanksRate", "banksrate", "Banksrate", "banksRate", "BANKSRATE", "bankrate", "BANKRATE", "bankRate", "BankRate", "bank", "banks"])
+def banks_rate(msg):
+ #banks = types.InlineKeyboardMarkup()
+ #cbe = types.InlineKeyboardButton("💳 Commercial Bank Of Ethiopia", callback_data='0')
+# awash = types.InlineKeyboardButton("💳 Awash Bank", callback_data='1')
+# abysnia = types.InlineKeyboardButton("💳 Abysnia Bank", callback_data='1')
+# banks.add(cbe, awash, abysnia )    
+    bot.reply_to(msg, "Please Select One Of The Following Banks", reply_markup = keyboardss())
+
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    # Acknowledge the callback query
+    bot.answer_callback_query(call.id, text="Fetching data...")
+    # Delete the previous message
+    bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+    # Process the callback data
+    bank = int(call.data)
+    result = local_currency(bank)
+    # Send the new message with the result
+    bot.send_message(call.message.chat.id, result)
+    start_command(call.message)
+
+
+
+
+
+
+
+
+
+
+
 
 # Function to check if a user is an admin
 def is_admin(user_id):
@@ -328,15 +436,16 @@ def start_command(message):
 
         button1 = types.KeyboardButton("🪙p2p Rate")
         button2 = types.KeyboardButton("🆘Help")
+        button8 = types.KeyboardButton("🏦Banks")
         button3 = types.KeyboardButton("About")
         button4 = types.KeyboardButton("👤Profile")
         button5 = types.KeyboardButton("📊Stats")
         button6 = types.KeyboardButton("⚙️Services")
         button7 = types.KeyboardButton("💬Comment")
 
-        keyboard.add(button1, button2, button3)
-        keyboard.add(button4, button5, button6)
-        keyboard.add(button7)
+        keyboard.add(button1, button2, button8)
+        keyboard.add(button3, button4, button5)
+        keyboard.add(button6, button7)
 
         bot.send_message(message.chat.id, "Choose an option:", reply_markup=keyboard)
     elif chat_type in ["group", "supergroup"]:  # Group
@@ -375,6 +484,8 @@ def help_command(message):
                  "/help - Display assistance options\n"
                  "/pprice - Binance P2P Price\n"
                  "/conv - Convert Between currencies"
+                 "/banks - TO get Current foreign Exchange data of banks"
+                 
                  )
     if chat_type == "private":  # User
         bot.send_message(message.chat.id, help_text, parse_mode="HTML", reply_markup=donate_keyboard)
@@ -387,10 +498,12 @@ def help_command(message):
         button5 = types.KeyboardButton("📊Stats")
         button6 = types.KeyboardButton("⚙️Services")
         button7 = types.KeyboardButton("💬Comment")
+        button8 = types.KeyboardButton("🏦Banks")
+        
 
-        keyboard.add(button2, button1, button3)
-        keyboard.add(button4, button5, button6)
-        keyboard.add(button7)
+        keyboard.add(button2, button1, button8)
+        keyboard.add(button3, button4, button5)
+        keyboard.add(button6, button7)
 
         bot.send_message(message.chat.id, "Choose an option:", reply_markup=keyboard)
     elif chat_type in ["group", "supergroup"]:  # Group
@@ -442,10 +555,12 @@ Dev Channel 🧑‍💻: <a href="https://t.me/Bright_Codes">@Bright_Codes</a>
         button5 = types.KeyboardButton("📊Stats")
         button6 = types.KeyboardButton("⚙️Services")
         button7 = types.KeyboardButton("💬Comment")
+        button8 = types.KeyboardButton("🏦Banks")
+        
 
-        keyboard.add(button2, button1, button3)
-        keyboard.add(button4, button5, button6)
-        keyboard.add(button7)
+        keyboard.add(button2, button1, button8)
+        keyboard.add(button3, button4, button5)
+        keyboard.add(button6, button7)
 
         bot.send_message(message.chat.id, "Choose an option:", reply_markup=keyboard)
 
@@ -815,6 +930,8 @@ def handle_message(message):
         send_about(message)
     elif message.text == "💬Comment":
         suggest_idea()
+    elif message.text =="🏦Banks":
+        banks_rate(message)
 
 bot.remove_webhook()  # Remove any existing webhook
 bot.set_webhook(url='secondary-drucy-bright-codes-3408871d.koyeb.app/')
